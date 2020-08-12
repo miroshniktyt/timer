@@ -116,6 +116,7 @@ class StopwatchViewController: UIViewController {
         stopWatch.pausedTime -= doubleTapDuration
         isTimerRunning = false
         presentSavingAlert()
+        self.stopWatch.stop()
     }
     
     private func presentSavingAlert() {
@@ -128,7 +129,6 @@ class StopwatchViewController: UIViewController {
                 
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in
             self.timeLabel.text = self.stopWatch.elapsedTime.formattedTimerString
-            self.stopWatch.stop()
         }
 
         let saveAction = UIAlertAction(title: "Save", style: .default) { (_) in
@@ -137,8 +137,6 @@ class StopwatchViewController: UIViewController {
             self.recordsView.records.insert(record, at: 0)
             StorageManager.savedRecords = self.recordsView.records
             self.timeLabel.text = self.stopWatch.elapsedTime.formattedTimerString
-            
-            self.stopWatch.stop()
         }
         
         alert.addAction(cancelAction)
